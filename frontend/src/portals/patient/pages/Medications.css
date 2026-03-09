@@ -1,0 +1,605 @@
+/* ============================================
+   Medications Page — Patient Portal
+   Header · Stats · Card grid · Time slots
+   ============================================ */
+
+/* ---------- Header ---------- */
+.meds__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.meds__header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.25);
+}
+
+.meds__header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0 0 var(--space-xs);
+}
+
+.meds__header p {
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* ---------- Stats strip ---------- */
+.meds__stats {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.meds__stat {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.meds__stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.meds__stat-num {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.meds__stat-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Adherence ring */
+.meds__stat-ring {
+    position: relative;
+    width: 48px;
+    height: 48px;
+}
+
+.meds__ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.meds__ring-bg {
+    fill: none;
+    stroke: var(--color-border);
+    stroke-width: 3;
+}
+
+.meds__ring-fg {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.6s ease;
+}
+
+.meds__ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+/* ---------- Card grid ---------- */
+.meds__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+/* ---------- Card ---------- */
+.meds__card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.meds__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+.meds__card--done {
+    border-color: rgba(22, 163, 74, 0.3);
+    background: rgba(22, 163, 74, 0.02);
+}
+
+/* Card header */
+.meds__card-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.meds__card-pill {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.12), rgba(69, 123, 157, 0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.meds__card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.meds__card-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.meds__card-name span {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-left: var(--space-xs);
+}
+
+.meds__card-doctor {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+}
+
+/* Instructions */
+.meds__card-instructions {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    background: var(--color-bg);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    margin: 0 0 var(--space-md);
+    line-height: var(--line-height-base);
+}
+
+/* Progress bar */
+.meds__progress-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.meds__progress-bar {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-border);
+    overflow: hidden;
+}
+
+.meds__progress-fill {
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: linear-gradient(90deg, var(--color-primary), #16a34a);
+    transition: width 0.4s ease;
+}
+
+.meds__progress-text {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+/* ---------- Time slots ---------- */
+.meds__slots {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+}
+
+.meds__slot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.meds__slot--taken {
+    background: rgba(22, 163, 74, 0.04);
+    border-color: rgba(22, 163, 74, 0.2);
+}
+
+.meds__slot-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.meds__slot-icon {
+    font-size: var(--font-size-lg);
+    width: 28px;
+    text-align: center;
+}
+
+.meds__slot-time {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.meds__slot-label {
+    display: block;
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+/* ---------- Badges ---------- */
+.meds__badge {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 3px var(--space-sm);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.meds__badge--taken {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.meds__badge--done {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ---------- Buttons ---------- */
+.meds__take-btn {
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.meds__take-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-1px);
+}
+
+.meds__mark-all {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.meds__mark-all:hover {
+    background: var(--color-primary-dark, #1f7a6e);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(42, 157, 143, 0.3);
+}
+
+/* ---------- Tabs ---------- */
+.meds__tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 4px;
+    margin-bottom: var(--space-xl);
+    width: fit-content;
+}
+
+.meds__tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.meds__tab:hover {
+    color: var(--color-text);
+}
+
+.meds__tab--active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.25);
+}
+
+.meds__tab-count {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 1px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.meds__tab:not(.meds__tab--active) .meds__tab-count {
+    background: var(--color-border);
+    color: var(--color-text-muted);
+}
+
+/* ---------- History tab ---------- */
+.meds__history-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+/* History card */
+.meds__hcard {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.meds__hcard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+    border-color: rgba(42, 157, 143, 0.2);
+}
+
+/* History card header */
+.meds__hcard-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.meds__hcard-pill {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.12), rgba(69, 123, 157, 0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.meds__hcard-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.meds__hcard-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.meds__hcard-name span {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-left: var(--space-xs);
+}
+
+.meds__hcard-doctor {
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    margin: 2px 0 0;
+}
+
+.meds__hcard-spec {
+    color: var(--color-text-muted);
+}
+
+/* Completed badge */
+.meds__badge--completed {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Diagnosis callout */
+.meds__hcard-diagnosis {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background: rgba(42, 157, 143, 0.04);
+    border-left: 3px solid var(--color-primary);
+    margin-bottom: var(--space-md);
+}
+
+.meds__hcard-diag-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.meds__hcard-diag-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+}
+
+/* Details 2x2 grid */
+.meds__hcard-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+}
+
+.meds__hcard-detail {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+}
+
+.meds__hcard-detail-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.meds__hcard-detail-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+    margin-top: 2px;
+}
+
+/* Adherence row */
+.meds__hcard-adherence {
+    margin-top: auto;
+}
+
+.meds__hcard-adh-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+}
+
+.meds__hcard-adh-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.meds__hcard-adh-pct {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.meds__progress-fill--history {
+    background: linear-gradient(90deg, var(--color-primary), #16a34a);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+
+    .meds__grid,
+    .meds__history-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .meds__stats {
+        flex-direction: column;
+    }
+
+    .meds__header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .meds__tabs {
+        width: 100%;
+    }
+
+    .meds__tab {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .meds__hcard-details {
+        grid-template-columns: 1fr;
+    }
+}

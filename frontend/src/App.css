@@ -1,0 +1,10 @@
+/* ============================================
+   App-Level Overrides
+   Keep this minimal — globals.css handles resets.
+   ============================================ */
+
+/* Remove the Vite boilerplate constraints */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

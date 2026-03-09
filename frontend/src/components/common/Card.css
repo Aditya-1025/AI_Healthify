@@ -1,0 +1,83 @@
+/* ============================================
+   Card Component
+   Surface background · Shadow · Rounded corners
+   Hover elevation · All design-token driven
+   ============================================ */
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-lg);
+    transition:
+        box-shadow var(--transition-base),
+        transform var(--transition-base),
+        border-color var(--transition-base);
+    cursor: default;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--color-primary-light);
+}
+
+/* ---- Size variants ---- */
+.card--compact {
+    padding: var(--space-md);
+}
+
+.card--spacious {
+    padding: var(--space-xl);
+}
+
+/* ---- Visual variants ---- */
+.card--flat {
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+}
+
+.card--flat:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.card--elevated {
+    box-shadow: var(--shadow-md);
+}
+
+.card--elevated:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+/* ---- Optional header / body / footer ---- */
+.card__header {
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.card__header h3,
+.card__header h4 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+}
+
+.card__body {
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+}
+
+.card__footer {
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-sm);
+}

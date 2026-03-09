@@ -1,0 +1,256 @@
+/* ============================================
+   DoctorNotificationBell
+   Bell icon + Dropdown for Doctor Portal
+   ============================================ */
+
+.doc-bell {
+    position: relative;
+}
+
+/* ── Trigger ── */
+.doc-bell__trigger {
+    position: relative;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+    line-height: 1;
+}
+
+.doc-bell__trigger:hover {
+    background: rgba(42, 157, 143, 0.08);
+}
+
+/* ── Badge ── */
+.doc-bell__badge {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-danger);
+    color: var(--color-white);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0 4px;
+    animation: docBadgePop 0.3s ease-out;
+}
+
+@keyframes docBadgePop {
+    from {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* ── Dropdown ── */
+.doc-bell__dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: -12px;
+    width: 380px;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    z-index: 999;
+    overflow: hidden;
+    animation: docDropSlide 0.25s ease-out;
+}
+
+@keyframes docDropSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.doc-bell__dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.doc-bell__dropdown-header h4 {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+.doc-bell__mark-all {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+}
+
+.doc-bell__mark-all:hover {
+    background: rgba(42, 157, 143, 0.08);
+}
+
+/* List */
+.doc-bell__list {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+/* Item */
+.doc-bell__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.doc-bell__item:last-child {
+    border-bottom: none;
+}
+
+.doc-bell__item:hover {
+    background: rgba(42, 157, 143, 0.04);
+}
+
+/* Unread */
+.doc-bell__item--unread {
+    background: rgba(42, 157, 143, 0.05);
+}
+
+.doc-bell__item--unread:hover {
+    background: rgba(42, 157, 143, 0.09);
+}
+
+.doc-bell__item-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.doc-bell__item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.doc-bell__item-patient {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    line-height: 1.3;
+}
+
+.doc-bell__item-msg {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.doc-bell__item--unread .doc-bell__item-msg {
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+}
+
+.doc-bell__item-time {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    margin-top: 3px;
+    display: block;
+}
+
+/* Unread dot */
+.doc-bell__item-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+/* Empty */
+.doc-bell__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-xl);
+    text-align: center;
+    color: var(--color-text-muted);
+    gap: var(--space-xs);
+}
+
+.doc-bell__empty span {
+    font-size: 2rem;
+}
+
+.doc-bell__empty p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+}
+
+/* Footer */
+.doc-bell__dropdown-footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-sm) var(--space-lg);
+}
+
+.doc-bell__view-all {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-align: center;
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.doc-bell__view-all:hover {
+    background: rgba(42, 157, 143, 0.08);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .doc-bell__dropdown {
+        width: 310px;
+        right: -40px;
+    }
+}

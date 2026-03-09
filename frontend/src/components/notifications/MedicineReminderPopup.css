@@ -1,0 +1,215 @@
+/* ============================================
+   MedicineReminderPopup
+   Bottom-right slide-in card
+   ============================================ */
+
+.med-popup {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    z-index: 1100;
+    animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) translateX(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(0) scale(1);
+    }
+}
+
+.med-popup__card {
+    width: 340px;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(42, 157, 143, 0.08);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Close */
+.med-popup__close {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    z-index: 1;
+}
+
+.med-popup__close:hover {
+    background: rgba(231, 111, 81, 0.1);
+    color: var(--color-danger);
+}
+
+/* ── Header ── */
+.med-popup__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-lg) var(--space-sm);
+}
+
+.med-popup__icon-ring {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.12), rgba(69, 123, 157, 0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(42, 157, 143, 0);
+    }
+}
+
+.med-popup__icon {
+    font-size: 1.3rem;
+}
+
+.med-popup__title {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+.med-popup__time {
+    margin: 2px 0 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ── Body ── */
+.med-popup__body {
+    padding: var(--space-sm) var(--space-lg) var(--space-sm);
+}
+
+.med-popup__message {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.med-popup__message strong {
+    color: var(--color-primary);
+}
+
+.med-popup__instructions {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    padding: 4px var(--space-sm);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    display: inline-block;
+}
+
+/* ── Auto-dismiss progress ── */
+.med-popup__progress {
+    padding: 0 var(--space-lg);
+    margin: var(--space-sm) 0;
+}
+
+.med-popup__progress-bar {
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    animation: progressShrink 10s linear forwards;
+}
+
+@keyframes progressShrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+/* ── Actions ── */
+.med-popup__actions {
+    display: flex;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-lg) var(--space-lg);
+}
+
+.med-popup__btn {
+    flex: 1;
+    padding: 8px var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1.5px solid transparent;
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.med-popup__btn--taken {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+.med-popup__btn--taken:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+}
+
+.med-popup__btn--snooze {
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+}
+
+.med-popup__btn--snooze:hover {
+    border-color: var(--color-warning);
+    color: var(--color-warning);
+    background: rgba(244, 162, 97, 0.06);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .med-popup {
+        right: var(--space-md);
+        bottom: var(--space-md);
+    }
+
+    .med-popup__card {
+        width: calc(100vw - 32px);
+        max-width: 340px;
+    }
+}

@@ -1,0 +1,397 @@
+/* ============================================
+   Patient Dashboard
+   Personal health tracking · AI assistant
+   All values from variables.css
+   ============================================ */
+
+/* ---------- Page header ---------- */
+.pdash__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-xl);
+    gap: var(--space-lg);
+}
+
+.pdash__greeting h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin-bottom: var(--space-xs);
+}
+
+.pdash__greeting p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-md);
+    margin: 0;
+}
+
+.pdash__date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+/* ---------- Vitals grid ---------- */
+.pdash__vitals {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.vital-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.vital-card__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+.vital-card__icon--heart {
+    background: rgba(231, 111, 81, 0.12);
+}
+
+.vital-card__icon--bp {
+    background: rgba(69, 123, 157, 0.12);
+}
+
+.vital-card__icon--bmi {
+    background: rgba(42, 157, 143, 0.12);
+}
+
+.vital-card__icon--sleep {
+    background: rgba(103, 65, 217, 0.12);
+}
+
+.vital-card__data {
+    flex: 1;
+    min-width: 0;
+}
+
+.vital-card__label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.vital-card__value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.vital-card__unit {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
+.vital-card__status {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-full);
+    margin-top: var(--space-xs);
+    display: inline-block;
+}
+
+.vital-card__status--normal {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.vital-card__status--warning {
+    color: var(--color-warning);
+    background: rgba(244, 162, 97, 0.12);
+}
+
+.vital-card__status--elevated {
+    color: var(--color-danger);
+    background: rgba(231, 111, 81, 0.1);
+}
+
+/* ---------- Two-column body ---------- */
+.pdash__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+/* ---------- Appointments (patient view) ---------- */
+.pdash-appt {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.pdash-appt__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    transition: background var(--transition-fast);
+}
+
+.pdash-appt__item:hover {
+    background: rgba(42, 157, 143, 0.06);
+}
+
+.pdash-appt__date {
+    min-width: 52px;
+    text-align: center;
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+.pdash-appt__date-day {
+    display: block;
+    font-size: var(--font-size-xl);
+}
+
+.pdash-appt__date-month {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+}
+
+.pdash-appt__info {
+    flex: 1;
+}
+
+.pdash-appt__info h4 {
+    margin: 0 0 2px;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.pdash-appt__info p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.pdash-appt__time {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+
+/* ---------- Medications tracker ---------- */
+.pdash-meds {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.med-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.med-item:hover {
+    background: rgba(42, 157, 143, 0.06);
+}
+
+.med-item__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: rgba(42, 157, 143, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+}
+
+.med-item__details {
+    flex: 1;
+}
+
+.med-item__name {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: 2px;
+}
+
+.med-item__dosage {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.med-item__timing {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 3px var(--space-sm);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.med-item__timing--morning {
+    color: var(--color-warning);
+    background: rgba(244, 162, 97, 0.12);
+}
+
+.med-item__timing--afternoon {
+    color: var(--color-info);
+    background: rgba(69, 123, 157, 0.12);
+}
+
+.med-item__timing--night {
+    color: #7c3aed;
+    background: rgba(124, 58, 237, 0.1);
+}
+
+/* ---------- Health goals / activity ---------- */
+.pdash__goals {
+    grid-column: 1 / -1;
+}
+
+.goals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+}
+
+.goal-item {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    text-align: center;
+}
+
+.goal-item__icon {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+}
+
+.goal-item__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+}
+
+.goal-item__progress {
+    width: 100%;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--color-border);
+    overflow: hidden;
+    margin-bottom: var(--space-xs);
+}
+
+.goal-item__bar {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow);
+}
+
+.goal-item__bar--steps {
+    background: var(--color-primary);
+}
+
+.goal-item__bar--water {
+    background: var(--color-info);
+}
+
+.goal-item__bar--calories {
+    background: var(--color-warning);
+}
+
+.goal-item__text {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ---------- Section header helper ---------- */
+.pdash__section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+}
+
+.pdash__section-header h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-secondary);
+}
+
+.pdash__section-link {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.pdash__section-link:hover {
+    color: var(--color-primary-dark);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+    .pdash__vitals {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pdash__body {
+        grid-template-columns: 1fr;
+    }
+
+    .goals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pdash__goals {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .pdash__vitals {
+        grid-template-columns: 1fr;
+    }
+
+    .pdash__header {
+        flex-direction: column;
+    }
+}

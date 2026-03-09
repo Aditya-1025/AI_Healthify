@@ -1,0 +1,367 @@
+/* ============================================
+   Prescriptions Page — Patient Portal
+   Header · Stats · Prescription cards
+   ============================================ */
+
+/* ---------- Header ---------- */
+.rx__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.rx__header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.25);
+}
+
+.rx__header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0 0 var(--space-xs);
+}
+
+.rx__header p {
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* ---------- Stats ---------- */
+.rx__stats {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.rx__stat {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.rx__stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.rx__stat-num {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.rx__stat-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- List ---------- */
+.rx__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+/* ---------- Card ---------- */
+.rx__card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.rx__card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+.rx__card--expanded {
+    border-color: rgba(42, 157, 143, 0.3);
+}
+
+/* Card header */
+.rx__card-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.rx__card-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+    color: var(--color-white);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+}
+
+.rx__card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.rx__card-info h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.rx__card-spec {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+}
+
+.rx__card-date {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-light);
+    white-space: nowrap;
+    background: var(--color-bg);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+/* Diagnosis */
+.rx__diagnosis {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background: rgba(42, 157, 143, 0.04);
+    border-left: 3px solid var(--color-primary);
+    margin-bottom: var(--space-md);
+}
+
+.rx__diagnosis-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rx__diagnosis-value {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+}
+
+/* ---------- Medicines table ---------- */
+.rx__meds-section {
+    margin-bottom: var(--space-md);
+}
+
+.rx__meds-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+}
+
+.rx__meds-table {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.rx__meds-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr;
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    transition: background var(--transition-fast);
+}
+
+.rx__meds-row:last-child {
+    border-bottom: none;
+}
+
+.rx__meds-row:not(.rx__meds-row--header):hover {
+    background: rgba(42, 157, 143, 0.03);
+}
+
+.rx__meds-row--header {
+    background: var(--color-bg);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.rx__med-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+}
+
+.rx__med-dosage {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+
+.rx__med-freq,
+.rx__med-dur {
+    color: var(--color-text-muted);
+}
+
+/* ---------- Notes ---------- */
+.rx__notes {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-md);
+    animation: rxNotesIn 0.25s ease-out;
+}
+
+@keyframes rxNotesIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rx__notes-label {
+    display: block;
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-xs);
+}
+
+.rx__notes p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+}
+
+/* ---------- Actions ---------- */
+.rx__actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.rx__btn {
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.rx__btn--primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+}
+
+.rx__btn--primary:hover {
+    background: var(--color-primary-dark, #1f7a6e);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(42, 157, 143, 0.3);
+}
+
+.rx__btn--outline {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1.5px solid var(--color-border);
+}
+
+.rx__btn--outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .rx__meds-row {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xs);
+    }
+
+    .rx__meds-row--header {
+        display: none;
+    }
+
+    .rx__card-top {
+        flex-wrap: wrap;
+    }
+
+    .rx__card-date {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .rx__stats {
+        flex-direction: column;
+    }
+
+    .rx__header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .rx__actions {
+        flex-direction: column;
+    }
+
+    .rx__btn {
+        text-align: center;
+    }
+}

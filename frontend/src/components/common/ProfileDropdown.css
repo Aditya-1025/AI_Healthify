@@ -1,0 +1,171 @@
+/* ============================================
+   Profile Dropdown — Shared component
+   ============================================ */
+
+.pd {
+    position: relative;
+}
+
+/* ── Avatar trigger ── */
+.pd__trigger {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    font-family: inherit;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.pd__trigger:hover {
+    border-color: rgba(42, 157, 143, 0.4);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.15);
+    transform: scale(1.05);
+}
+
+.pd__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+}
+
+.pd__avatar-initials {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.5px;
+}
+
+/* ── Dropdown menu ── */
+.pd__menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 260px;
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+    z-index: var(--z-dropdown, 100);
+    padding: var(--space-xs) 0;
+    animation: pdSlideIn 0.2s ease-out;
+}
+
+@keyframes pdSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ── Menu header ── */
+.pd__menu-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+}
+
+.pd__menu-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.pd__menu-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pd__menu-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.pd__menu-info strong {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pd__menu-info span {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Divider ── */
+.pd__menu-divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: var(--space-xs) 0;
+}
+
+/* ── Menu item ── */
+.pd__menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 10px var(--space-lg);
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    text-align: left;
+}
+
+.pd__menu-item:hover {
+    background: rgba(42, 157, 143, 0.06);
+    color: var(--color-primary);
+}
+
+.pd__menu-item--danger {
+    color: #e74c3c;
+}
+
+.pd__menu-item--danger:hover {
+    background: rgba(231, 76, 60, 0.06);
+    color: #c0392b;
+}
+
+.pd__menu-item-icon {
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}

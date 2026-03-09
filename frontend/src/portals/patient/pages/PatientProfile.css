@@ -1,0 +1,331 @@
+/* ============================================
+   Profile Page — Patient & Doctor
+   ============================================ */
+
+/* ── Toast ── */
+.up__toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 14px 24px;
+    background: var(--color-surface);
+    border: 1.5px solid rgba(22, 163, 74, 0.3);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: #16a34a;
+    z-index: 9999;
+    animation: upToastIn 0.3s ease-out;
+}
+
+@keyframes upToastIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Header ── */
+.up__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-xl);
+}
+
+.up__header h2 {
+    margin: 0;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+.up__header p {
+    margin: 4px 0 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.up__edit-btn {
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--color-primary);
+    background: transparent;
+    color: var(--color-primary);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.up__edit-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-1px);
+}
+
+/* ── Avatar card ── */
+.up__avatar-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-2xl);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.06), rgba(69, 123, 157, 0.06));
+    border: 1.5px solid rgba(42, 157, 143, 0.12);
+    margin-bottom: var(--space-xl);
+}
+
+.up__avatar-wrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(42, 157, 143, 0.3);
+    overflow: hidden;
+    transition: transform var(--transition-fast);
+}
+
+.up__avatar-wrap:hover {
+    transform: scale(1.05);
+}
+
+.up__avatar-wrap:hover .up__avatar-overlay {
+    opacity: 1;
+}
+
+.up__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.up__avatar-initials {
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-white);
+    letter-spacing: 1px;
+}
+
+.up__avatar-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.up__avatar-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Avatar info */
+.up__avatar-info h3 {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+.up__avatar-info p {
+    margin: 4px 0 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.up__role-badge {
+    display: inline-block;
+    margin: var(--space-xs) 0;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-full);
+    background: rgba(42, 157, 143, 0.1);
+    color: var(--color-primary);
+}
+
+.up__role-badge--doctor {
+    background: rgba(69, 123, 157, 0.1);
+    color: #457b9d;
+}
+
+/* ── Card ── */
+.up__card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+}
+
+.up__card-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.up__card-head-icon {
+    font-size: 1.3rem;
+}
+
+.up__card-head h3 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+}
+
+/* ── Fields grid ── */
+.up__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg) var(--space-xl);
+}
+
+.up__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.up__field-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.up__field-icon {
+    font-size: 0.9rem;
+}
+
+.up__field-value {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+    padding: 10px var(--space-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.up__field-input {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    padding: 10px var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-surface);
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.up__field-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12);
+}
+
+select.up__field-input {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+}
+
+/* ── Actions row ── */
+.up__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.up__btn {
+    padding: 10px var(--space-xl);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    border: none;
+}
+
+.up__btn--cancel {
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    border: 1.5px solid var(--color-border);
+}
+
+.up__btn--cancel:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.up__btn--save {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.25);
+}
+
+.up__btn--save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(42, 157, 143, 0.4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .up__avatar-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .up__fields {
+        grid-template-columns: 1fr;
+    }
+
+    .up__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-md);
+    }
+}

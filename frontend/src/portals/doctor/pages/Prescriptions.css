@@ -1,0 +1,623 @@
+/* ============================================
+   Doctor Prescriptions
+   Header · Tabs · Form · Medicine rows · Recent
+   ============================================ */
+
+/* ---------- Header ---------- */
+.drx__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.drx__header-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, rgba(42, 157, 143, 0.12), rgba(69, 123, 157, 0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+.drx__header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.drx__header p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 2px 0 0;
+}
+
+/* ---------- Tabs ---------- */
+.drx__tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 4px;
+    margin-bottom: var(--space-xl);
+    width: fit-content;
+}
+
+.drx__tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.drx__tab:hover {
+    color: var(--color-text);
+}
+
+.drx__tab--active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.25);
+}
+
+.drx__tab-count {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 1px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.drx__tab:not(.drx__tab--active) .drx__tab-count {
+    background: var(--color-border);
+    color: var(--color-text-muted);
+}
+
+/* ---------- Success toast ---------- */
+.drx__success {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: rgba(22, 163, 74, 0.06);
+    border: 1.5px solid rgba(22, 163, 74, 0.2);
+    margin-bottom: var(--space-xl);
+    animation: drxSlideIn 0.4s ease-out;
+}
+
+@keyframes drxSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.drx__success-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.drx__success strong {
+    display: block;
+    color: #16a34a;
+    font-size: var(--font-size-sm);
+    margin-bottom: 2px;
+}
+
+.drx__success p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    margin: 0;
+}
+
+/* ---------- Form grid ---------- */
+.drx__form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    align-items: start;
+}
+
+/* ---------- Card ---------- */
+.drx__card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+}
+
+.drx__card-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.drx__card-head-icon {
+    font-size: 1.3rem;
+}
+
+.drx__card-head h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+    flex: 1;
+}
+
+.drx__badge {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ---------- Form fields ---------- */
+.drx__field {
+    margin-bottom: var(--space-md);
+}
+
+.drx__field label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.drx__optional {
+    font-weight: var(--font-weight-normal);
+    text-transform: none;
+    color: var(--color-text-muted);
+    letter-spacing: 0;
+}
+
+.drx__input,
+.drx__select,
+.drx__textarea {
+    width: 100%;
+    padding: 10px var(--space-md);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.drx__input:focus,
+.drx__select:focus,
+.drx__textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.1);
+}
+
+.drx__input::placeholder,
+.drx__textarea::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+}
+
+.drx__textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.drx__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* ---------- Patient preview ---------- */
+.drx__patient-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    background: rgba(42, 157, 143, 0.05);
+    border: 1px solid rgba(42, 157, 143, 0.15);
+    margin-bottom: var(--space-md);
+    animation: drxSlideIn 0.3s ease-out;
+}
+
+.drx__patient-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.drx__patient-preview strong {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-secondary);
+}
+
+.drx__patient-preview span {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ---------- Medicine rows ---------- */
+.drx__medicines-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.drx__med-row {
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--transition-fast);
+}
+
+.drx__med-row:hover {
+    border-color: rgba(42, 157, 143, 0.25);
+}
+
+.drx__med-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.drx__med-num {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.drx__med-remove {
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.08);
+    color: #ef4444;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.drx__med-remove:hover {
+    background: rgba(239, 68, 68, 0.15);
+    transform: scale(1.1);
+}
+
+.drx__med-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+}
+
+.drx__field--half {
+    margin-bottom: 0;
+}
+
+/* ---------- Add medicine button ---------- */
+.drx__add-med {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    margin-top: var(--space-md);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-primary);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.drx__add-med:hover {
+    border-color: var(--color-primary);
+    background: rgba(42, 157, 143, 0.04);
+    transform: translateY(-1px);
+}
+
+.drx__add-med span {
+    font-size: 1.1rem;
+}
+
+/* ---------- Action buttons ---------- */
+.drx__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+}
+
+.drx__btn {
+    padding: 12px var(--space-2xl);
+    border-radius: var(--radius-md);
+    border: none;
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+}
+
+.drx__btn--cancel {
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    border: 1.5px solid var(--color-border);
+}
+
+.drx__btn--cancel:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+}
+
+.drx__btn--save {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.3);
+}
+
+.drx__btn--save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(42, 157, 143, 0.45);
+}
+
+/* ══════════════ Recent Prescriptions ══════════════ */
+.drx__recent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.drx__rx-card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.drx__rx-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+    border-color: rgba(42, 157, 143, 0.2);
+}
+
+/* Rx card top */
+.drx__rx-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.drx__rx-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark, #1f7a6e));
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.drx__rx-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.drx__rx-info h4 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.drx__rx-info p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+}
+
+.drx__rx-status {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.drx__rx-status--active {
+    background: rgba(42, 157, 143, 0.1);
+    color: var(--color-primary);
+}
+
+.drx__rx-status--completed {
+    background: rgba(22, 163, 74, 0.1);
+    color: #16a34a;
+}
+
+/* Rx details row */
+.drx__rx-details {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.drx__rx-detail {
+    flex: 1;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+}
+
+.drx__rx-detail-label {
+    display: block;
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.drx__rx-detail-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-secondary);
+}
+
+/* Rx actions */
+.drx__rx-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.drx__rx-btn {
+    flex: 1;
+    padding: 8px var(--space-md);
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.drx__rx-btn:hover {
+    background: var(--color-primary-dark, #1f7a6e);
+    transform: translateY(-1px);
+}
+
+.drx__rx-btn--outline {
+    background: transparent;
+    border: 1.5px solid var(--color-border);
+    color: var(--color-text-muted);
+}
+
+.drx__rx-btn--outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(42, 157, 143, 0.04);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .drx__form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .drx__recent-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .drx__header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .drx__tabs {
+        width: 100%;
+    }
+
+    .drx__tab {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .drx__med-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .drx__actions {
+        flex-direction: column;
+    }
+
+    .drx__btn {
+        width: 100%;
+        text-align: center;
+    }
+}

@@ -1,0 +1,252 @@
+/* ============================================
+   Patients Page — Doctor Portal
+   Header · Stats · Search · Table
+   All values from variables.css
+   ============================================ */
+
+/* ---------- Header ---------- */
+.pts__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.pts__header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.25);
+}
+
+.pts__header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0 0 var(--space-xs);
+}
+
+.pts__header p {
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* ---------- Stats ---------- */
+.pts__stats {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.pts__stat-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pts__stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.pts__stat-num {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.pts__stat-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- Search ---------- */
+.pts__search-row {
+    margin-bottom: var(--space-lg);
+}
+
+.pts__search {
+    width: 100%;
+    padding: var(--space-sm) var(--space-lg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pts__search:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12);
+}
+
+/* ---------- Table ---------- */
+.pts__table-wrap {
+    overflow-x: auto;
+}
+
+.pts__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pts__table th {
+    text-align: left;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.pts__table td {
+    padding: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.pts__row {
+    transition: background var(--transition-fast);
+}
+
+.pts__row:hover {
+    background: rgba(42, 157, 143, 0.03);
+}
+
+.pts__row--clickable {
+    cursor: pointer;
+}
+
+.pts__row--clickable:hover {
+    background: rgba(42, 157, 143, 0.06);
+    box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+/* Name cell */
+.pts__name-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.pts__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.pts__name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.pts__email {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.pts__phone {
+    white-space: nowrap;
+    color: var(--color-text-muted);
+}
+
+.pts__last-visit {
+    white-space: nowrap;
+    color: var(--color-text-muted);
+}
+
+/* Conditions */
+.pts__conditions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+.pts__condition-tag {
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-full);
+    background: rgba(42, 157, 143, 0.08);
+    color: var(--color-primary);
+}
+
+.pts__no-cond {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
+/* Status */
+.pts-status {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 3px var(--space-sm);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.pts-status--active {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.pts-status--followup {
+    color: var(--color-warning);
+    background: rgba(244, 162, 97, 0.12);
+}
+
+.pts-status--inactive {
+    color: var(--color-text-muted);
+    background: rgba(108, 117, 125, 0.1);
+}
+
+/* Empty */
+.pts__empty {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .pts__stats {
+        flex-direction: column;
+    }
+
+    .pts__header {
+        flex-direction: column;
+        text-align: center;
+    }
+}

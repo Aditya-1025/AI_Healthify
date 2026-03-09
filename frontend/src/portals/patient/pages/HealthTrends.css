@@ -1,0 +1,254 @@
+/* ============================================
+   Health Trends Page — Patient Portal
+   Header · Summary · Chart grid
+   ============================================ */
+
+/* ---------- Header ---------- */
+.ht__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.ht__header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-info));
+    font-size: 1.75rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(42, 157, 143, 0.25);
+}
+
+.ht__header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0 0 var(--space-xs);
+}
+
+.ht__header p {
+    font-size: var(--font-size-md);
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* Period toggle */
+.ht__period-toggle {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+    background: var(--color-bg);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: 3px;
+}
+
+.ht__period-btn {
+    padding: 6px 16px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+}
+
+.ht__period-btn:hover {
+    color: var(--color-text);
+}
+
+.ht__period-btn--active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 2px 8px rgba(42, 157, 143, 0.25);
+}
+
+/* ---------- Summary cards ---------- */
+.ht__summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+.ht__summary-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ht__summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.ht__summary-icon {
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ht__summary-value {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    line-height: 1.2;
+}
+
+.ht__summary-value small {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+}
+
+.ht__summary-label {
+    display: block;
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+}
+
+/* ---------- Chart grid ---------- */
+.ht__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+/* ---------- Chart card ---------- */
+.ht__chart-card {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+.ht__chart-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+.ht__chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.ht__chart-header h3 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.ht__chart-tag {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.ht__chart-tag--normal {
+    color: var(--color-primary);
+    background: rgba(42, 157, 143, 0.1);
+}
+
+.ht__chart-tag--good {
+    color: #16a34a;
+    background: rgba(22, 163, 74, 0.1);
+}
+
+.ht__chart-tag--warning {
+    color: #d97706;
+    background: rgba(217, 119, 6, 0.1);
+}
+
+.ht__chart-body {
+    padding: var(--space-md) var(--space-sm) var(--space-sm) 0;
+}
+
+/* ---------- Custom tooltip ---------- */
+.ht__tooltip {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ht__tooltip-label {
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin: 0 0 4px;
+}
+
+.ht__tooltip-value {
+    font-size: var(--font-size-xs);
+    margin: 2px 0;
+}
+
+.ht__tooltip-value strong {
+    font-weight: var(--font-weight-bold);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+    .ht__summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .ht__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .ht__summary {
+        grid-template-columns: 1fr;
+    }
+
+    .ht__header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .ht__period-toggle {
+        margin-left: 0;
+    }
+}
