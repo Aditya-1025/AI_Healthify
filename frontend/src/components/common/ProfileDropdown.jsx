@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import { useUserProfile } from '../../context/UserProfileContext';
 import './ProfileDropdown.css';
 
@@ -12,8 +13,19 @@ const ProfileDropdown = ({ role = 'patient' }) => {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const { getProfile } = useUserProfile();
     const profile = getProfile(role);
+    
+    // Use AuthContext user data if available, otherwise fall back to UserProfileContext
+    const displayName = user?.name || profile.fullName;
+    const displayEmail = user?.email || profile.email;
+    const userInitials = displayName
+        .split(' ')
+        .map(word => word[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2) || 'US';
 
     /* Close on outside click */
     useEffect(() => {
@@ -39,9 +51,9 @@ const ProfileDropdown = ({ role = 'patient' }) => {
             {/* Avatar trigger */}
             <button className="pd__trigger" onClick={() => setOpen((v) => !v)} aria-label="Profile menu">
                 {profile.photo ? (
-                    <img src={profile.photo} alt={profile.fullName} className="pd__avatar-img" />
+                    <img src={profile.photo} alt={displayName} className="pd__avatar-img" />
                 ) : (
-                    <span className="pd__avatar-initials">{profile.initials}</span>
+                    <span className="pd__avatar-initials">{userInitials}</span>
                 )}
             </button>
 
@@ -54,12 +66,12 @@ const ProfileDropdown = ({ role = 'patient' }) => {
                             {profile.photo ? (
                                 <img src={profile.photo} alt="" />
                             ) : (
-                                <span>{profile.initials}</span>
+                                <span>{userInitials}</span>
                             )}
                         </div>
                         <div className="pd__menu-info">
-                            <strong>{profile.fullName}</strong>
-                            <span>{profile.email}</span>
+                            <strong>{displayName}</strong>
+                            <span>{displayEmail}</span>
                         </div>
                     </div>
 

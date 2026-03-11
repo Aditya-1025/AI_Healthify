@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { api } from '../../services/api';
 import './Auth.css';
 
 const Signup = () => {
@@ -40,24 +41,32 @@ const Signup = () => {
         }
 
         setLoading(true);
+        setError('');
 
-        /* Mock signup — replace with API call later */
-        setTimeout(() => {
-            login({
-                name: form.name,
-                email: form.email,
-                role: form.role,
-                avatar: form.name
-                    .split(' ')
-                    .map((w) => w[0])
-                    .join('')
-                    .slice(0, 2)
-                    .toUpperCase(),
+        /* Call backend registration API */
+        api.post('/auth/register', {
+            name: form.name,
+            email: form.email,
+            password: form.password,
+        })
+            .then((response) => {
+                setLoading(false);
+                
+                // Show success message
+                alert('✅ Account created successfully! Please log in with your credentials.');
+                
+                // Clear form
+                setForm({ name: '', email: '', password: '', confirm: '', role: 'patient' });
+                
+                // Redirect to login page
+                navigate('/login');
+            })
+            .catch((err) => {
+                setLoading(false);
+                const errorMsg = err.message || 'Registration failed. Please try again.';
+                console.error('Registration error:', errorMsg);
+                setError(errorMsg);
             });
-
-            setLoading(false);
-            navigate(form.role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
-        }, 800);
     };
 
     return (

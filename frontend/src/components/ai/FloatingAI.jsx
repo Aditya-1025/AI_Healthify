@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSymptoms } from '../../context/SymptomContext';
 import { useAIUI } from '../../context/AIUIContext';
+import { api } from '../../services/api';
 import './FloatingAI.css';
 
 /* ───── Initial messages & suggestions (same as PatientDashboard) ───── */
@@ -35,6 +36,12 @@ const FloatingAI = () => {
     const [messages, setMessages] = useState(initialMessages);
     const [input, setInput] = useState('');
     const [showConditionDetail, setShowConditionDetail] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [bookingState, setBookingState] = useState(null); // null, 'selectDoctor', 'selectTime', 'confirm'
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [availableDoctors, setAvailableDoctors] = useState([]);
+    const [availableSlots, setAvailableSlots] = useState([]);
     const hasInjectedRef = useRef(false);
     const messagesEndRef = useRef(null);
 
@@ -76,16 +83,228 @@ const FloatingAI = () => {
         }
     }, [messages, isOpen]);
 
-    const handleSend = () => {
-        if (!input.trim()) return;
-        const userMsg = { id: Date.now(), from: 'user', text: input };
+    const handleSend = async () => {
+        if (!input.trim() || isLoading) return;
+        
+        const userMessage = input.trim().toLowerCase();
+        const userMsg = { id: Date.now(), from: 'user', text: input.trim() };
+        
+        // Add user message to chat
+        setMessages((prev) => [...prev, userMsg]);
+        setInput('');
+        
+        // Check if user wants to book appointment
+        if (userMessage.includes('book') && userMessage.includes('appointment')) {
+            setIsLoading(true);
+            await startAppointmentBooking();
+            setIsLoading(false);
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            // Call local knowledge base chatbot endpoint
+            const response = await api.post('/chatbot/chat', { message: input.trim() });
+            let botResponse = response.response;
+            
+            // Add confidence info if available
+            if (response.confidence && response.confidence > 0) {
+                botResponse += `\n\n_(Confidence: ${Math.round(response.confidence * 100)}%)_`;
+            }
+            
+            const botMsg = {
+                id: Date.now() + 1,
+                from: 'bot',
+                text: botResponse,
+            };
+            setMessages((prev) => [...prev, botMsg]);
+        } catch (error) {
+            const errorMsg = {
+                id: Date.now() + 1,
+                from: 'bot',
+                text: `Sorry, I encountered an error: ${error.message}. Please try again or consult your doctor. 😊`,
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const startAppointmentBooking = async () => {
+        try {
+            // Fetch available doctors
+            const doctorsRes = await api.get('/chatbot/doctors-list');
+            
+            if (!doctorsRes.available || !doctorsRes.doctors || doctorsRes.doctors.length === 0) {
+                const errorMsg = {
+                    id: Date.now(),
+                    from: 'bot',
+                    text: '❌ No doctors available at the moment. Please try again later.',
+                };
+                setMessages((prev) => [...prev, errorMsg]);
+                return;
+            }
+            
+            setAvailableDoctors(doctorsRes.doctors);
+            setBookingState('selectDoctor');
+            
+            const botMsg = {
+                id: Date.now(),
+                from: 'bot',
+                text: '👨‍⚕️ Great! Which doctor would you like to book an appointment with?',
+            };
+            setMessages((prev) => [...prev, botMsg]);
+        } catch (error) {
+            const errorMsg = {
+                id: Date.now(),
+                from: 'bot',
+                text: `Error loading doctors: ${error.message}`,
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+        }
+    };
+
+    const handleDoctorSelection = async (doctor) => {
+        setSelectedDoctor(doctor);
+        
+        const userMsg = {
+            id: Date.now(),
+            from: 'user',
+            text: `I'd like to book with ${doctor.name} (${doctor.specialization})`,
+        };
+        setMessages((prev) => [...prev, userMsg]);
+        
+        try {
+            // Fetch available time slots
+            const slotsRes = await api.get('/chatbot/available-slots');
+            setAvailableSlots(slotsRes.available_slots || []);
+            setBookingState('selectTime');
+            
+            const botMsg = {
+                id: Date.now() + 1,
+                from: 'bot',
+                text: '📅 Now, please select your preferred appointment time:',
+            };
+            setMessages((prev) => [...prev, botMsg]);
+        } catch (error) {
+            const errorMsg = {
+                id: Date.now() + 1,
+                from: 'bot',
+                text: `Error loading time slots: ${error.message}`,
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+        }
+    };
+
+    const handleTimeSelection = async (slot) => {
+        setSelectedTime(slot);
+        
+        const userMsg = {
+            id: Date.now(),
+            from: 'user',
+            text: `I want to book at ${slot.display}`,
+        };
+        setMessages((prev) => [...prev, userMsg]);
+        
         const botMsg = {
             id: Date.now() + 1,
             from: 'bot',
-            text: `Thanks for asking about "${input}". In a production app this would call the AI backend. For now, please consult your doctor for personalised advice. 😊`,
+            text: `✅ Confirm booking with ${selectedDoctor.name} on ${slot.display}? (Fee: ₹${selectedDoctor.fee})`,
         };
-        setMessages((prev) => [...prev, userMsg, botMsg]);
-        setInput('');
+        setMessages((prev) => [...prev, botMsg]);
+        setBookingState('confirm');
+    };
+
+    const confirmBooking = async () => {
+        if (!selectedDoctor || !selectedTime) {
+            const errorMsg = {
+                id: Date.now(),
+                from: 'bot',
+                text: 'Something went wrong. Please start over.',
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+            setBookingState(null);
+            return;
+        }
+
+        setIsLoading(true);
+        
+        try {
+            // Get user ID from localStorage (set during login)
+            const token = localStorage.getItem('token');
+            const userStr = localStorage.getItem('user');
+            if (!userStr || !token) {
+                throw new Error('User not logged in');
+            }
+            
+            const user = JSON.parse(userStr);
+            
+            // Book appointment
+            const bookRes = await api.post('/chatbot/book-appointment', {
+                user_id: user.id,
+                doctor_id: selectedDoctor.id,
+                time: `${selectedTime.date} ${selectedTime.time}`
+            });
+            
+            if (bookRes.success) {
+                const confirmMsg = {
+                    id: Date.now(),
+                    from: 'user',
+                    text: 'Yes, confirm booking',
+                };
+                setMessages((prev) => [...prev, confirmMsg]);
+                
+                const successMsg = {
+                    id: Date.now() + 1,
+                    from: 'bot',
+                    text: `${bookRes.message}\n\n📋 **Appointment Details:**\n` +
+                        `• Doctor: ${bookRes.appointment.doctor_name}\n` +
+                        `• Specialization: ${bookRes.appointment.doctor_specialization}\n` +
+                        `• Date & Time: ${bookRes.appointment.appointment_time}\n` +
+                        `• Status: ${bookRes.appointment.status}\n\n` +
+                        `Your doctor will be waiting for you. 👋`,
+                };
+                setMessages((prev) => [...prev, successMsg]);
+            } else {
+                throw new Error(bookRes.message);
+            }
+            
+            // Reset booking state
+            setBookingState(null);
+            setSelectedDoctor(null);
+            setSelectedTime(null);
+        } catch (error) {
+            const errorMsg = {
+                id: Date.now(),
+                from: 'bot',
+                text: `❌ Booking failed: ${error.message}. Please try again.`,
+            };
+            setMessages((prev) => [...prev, errorMsg]);
+            setBookingState(null);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const cancelBooking = () => {
+        const cancelMsg = {
+            id: Date.now(),
+            from: 'user',
+            text: 'Cancel booking',
+        };
+        setMessages((prev) => [...prev, cancelMsg]);
+        
+        const botMsg = {
+            id: Date.now() + 1,
+            from: 'bot',
+            text: 'Booking cancelled. How else can I help you? 😊',
+        };
+        setMessages((prev) => [...prev, botMsg]);
+        
+        setBookingState(null);
+        setSelectedDoctor(null);
+        setSelectedTime(null);
     };
 
     const handleSuggestion = (text) => {
@@ -109,10 +328,20 @@ const FloatingAI = () => {
                         <div className="floating-ai__avatar">🤖</div>
                         <div>
                             <p className="floating-ai__title">
-                                Healthify AI <span className="floating-ai__online"></span>
+                                Healthify Assistant <span className="floating-ai__online"></span>
                             </p>
-                            <p className="floating-ai__subtitle">Ask me anything about your health</p>
+                            <p className="floating-ai__subtitle">Local knowledge base Q&A</p>
                         </div>
+                    {isLoading && (
+                        <div className="floating-ai__msg floating-ai__msg--bot">
+                            <span className="floating-ai__msg-icon">🤖</span>
+                            <div className="floating-ai__msg-bubble floating-ai__msg-bubble--loading">
+                                <span className="floating-ai__typing-dot"></span>
+                                <span className="floating-ai__typing-dot"></span>
+                                <span className="floating-ai__typing-dot"></span>
+                            </div>
+                        </div>
+                    )}
                     </div>
                     <button
                         className="floating-ai__close"
@@ -133,6 +362,61 @@ const FloatingAI = () => {
                             <div className="floating-ai__msg-bubble">{m.text}</div>
                         </div>
                     ))}
+                    
+                    {/* Doctor Selection */}
+                    {bookingState === 'selectDoctor' && availableDoctors.length > 0 && (
+                        <div className="floating-ai__doctor-selection">
+                            {availableDoctors.map((doctor) => (
+                                <button
+                                    key={doctor.id}
+                                    className="floating-ai__doctor-btn"
+                                    onClick={() => handleDoctorSelection(doctor)}
+                                    disabled={isLoading}
+                                >
+                                    <div className="floating-ai__doctor-name">{doctor.name}</div>
+                                    <div className="floating-ai__doctor-specialty">{doctor.specialization}</div>
+                                    <div className="floating-ai__doctor-fee">₹{doctor.fee}</div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    
+                    {/* Time Slot Selection */}
+                    {bookingState === 'selectTime' && availableSlots.length > 0 && (
+                        <div className="floating-ai__slots-grid">
+                            {availableSlots.slice(0, 8).map((slot, idx) => (
+                                <button
+                                    key={idx}
+                                    className="floating-ai__slot-btn"
+                                    onClick={() => handleTimeSelection(slot)}
+                                    disabled={isLoading}
+                                >
+                                    {slot.display}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    
+                    {/* Confirmation Buttons */}
+                    {bookingState === 'confirm' && (
+                        <div className="floating-ai__confirmation">
+                            <button
+                                className="floating-ai__confirm-btn floating-ai__confirm-btn--yes"
+                                onClick={confirmBooking}
+                                disabled={isLoading}
+                            >
+                                ✅ Confirm
+                            </button>
+                            <button
+                                className="floating-ai__confirm-btn floating-ai__confirm-btn--no"
+                                onClick={cancelBooking}
+                                disabled={isLoading}
+                            >
+                                ❌ Cancel
+                            </button>
+                        </div>
+                    )}
+                    
                     <div ref={messagesEndRef} />
                 </div>
 
@@ -228,9 +512,15 @@ const FloatingAI = () => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
+                        disabled={isLoading}
                     />
-                    <button className="floating-ai__send" onClick={handleSend} title="Send">
-                        ➤
+                    <button 
+                        className="floating-ai__send" 
+                        onClick={handleSend} 
+                        title="Send"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? '⏳' : '➤'}
                     </button>
                 </div>
             </div>

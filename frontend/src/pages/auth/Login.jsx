@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { api } from '../../services/api';
 import './Auth.css';
 
 const Login = () => {
@@ -27,24 +28,43 @@ const Login = () => {
 
         setLoading(true);
 
-        /* Mock authentication — replace with API call later */
-        setTimeout(() => {
-            /* Determine role from email for demo purposes */
-            const isDoctor = form.email.toLowerCase().includes('doctor') ||
-                form.email.toLowerCase().includes('dr');
+        /* Call backend login API */
+        api.post('/auth/login', {
+            email: form.email,
+            password: form.password,
+        })
+            .then((response) => {
+                setLoading(false);
+                
+                // Store the token
+                localStorage.setItem('token', response.access_token);
+                
+                // Get user data from backend response
+                const userData = response.user || {};
+                
+                // Store complete user info in localStorage for chatbot and other components
+                localStorage.setItem('user', JSON.stringify({
+                    id: userData.id,
+                    name: userData.name,
+                    email: userData.email
+                }));
+                
+                // Store user info in context
+                login({
+                    name: userData.name || form.email.split('@')[0],
+                    email: userData.email || form.email,
+                    role: userData.email?.toLowerCase().includes('doctor') ? 'doctor' : 'patient',
+                    avatar: (userData.name || form.email.split('@')[0]).slice(0, 2).toUpperCase(),
+                });
 
-            const role = isDoctor ? 'doctor' : 'patient';
-
-            login({
-                name: isDoctor ? 'Dr. Anil Gupta' : 'Priya Sharma',
-                email: form.email,
-                role,
-                avatar: isDoctor ? 'DA' : 'PS',
+                // Redirect to dashboard
+                const role = userData.email?.toLowerCase().includes('doctor') ? 'doctor' : 'patient';
+                navigate(role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
+            })
+            .catch((err) => {
+                setLoading(false);
+                setError(err.message || 'Login failed. Please check your email and password.');
             });
-
-            setLoading(false);
-            navigate(role === 'doctor' ? '/doctor/dashboard' : '/patient/dashboard');
-        }, 800);
     };
 
     return (

@@ -510,6 +510,139 @@
     transform: scale(1.05);
 }
 
+/* ---------- Appointment Booking Styles ---------- */
+
+.floating-ai__doctor-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: var(--color-bg-secondary, #f5f7fa);
+    border-radius: var(--radius-md);
+    margin: 0 8px 12px 8px;
+}
+
+.floating-ai__doctor-btn {
+    padding: 12px;
+    background: var(--color-white);
+    border: 2px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.floating-ai__doctor-btn:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light, #f0f7f6);
+    transform: translateX(4px);
+}
+
+.floating-ai__doctor-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.floating-ai__doctor-name {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 4px;
+}
+
+.floating-ai__doctor-specialty {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #666);
+    margin-bottom: 4px;
+}
+
+.floating-ai__doctor-fee {
+    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* Time Slots Grid */
+.floating-ai__slots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+    background: var(--color-bg-secondary, #f5f7fa);
+    border-radius: var(--radius-md);
+    margin: 0 8px 12px 8px;
+}
+
+.floating-ai__slot-btn {
+    padding: 10px 8px;
+    background: var(--color-white);
+    border: 2px solid var(--color-border, #e0e0e0);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.floating-ai__slot-btn:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light, #f0f7f6);
+    transform: scale(1.05);
+}
+
+.floating-ai__slot-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Confirmation Buttons */
+.floating-ai__confirmation {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    background: var(--color-bg-secondary, #f5f7fa);
+    border-radius: var(--radius-md);
+    margin: 0 8px 12px 8px;
+}
+
+.floating-ai__confirm-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    font-size: 0.85rem;
+}
+
+.floating-ai__confirm-btn--yes {
+    background: var(--color-success, #4caf50);
+    color: var(--color-white);
+}
+
+.floating-ai__confirm-btn--yes:hover {
+    background: var(--color-success-dark, #40a840);
+    transform: scale(1.05);
+}
+
+.floating-ai__confirm-btn--no {
+    background: var(--color-danger, #f44336);
+    color: var(--color-white);
+}
+
+.floating-ai__confirm-btn--no:hover {
+    background: var(--color-danger-dark, #d32f2f);
+    transform: scale(1.05);
+}
+
+.floating-ai__confirm-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 600px) {
     .floating-ai__panel {

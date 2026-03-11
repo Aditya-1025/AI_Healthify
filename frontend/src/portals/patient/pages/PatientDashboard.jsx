@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContext';
 import Card from '../../../components/common/Card';
 import './PatientDashboard.css';
 
@@ -32,6 +33,9 @@ const healthGoals = [
 
 /* ───── Component ───── */
 const PatientDashboard = () => {
+    const { user } = useContext(AuthContext);
+    const userName = user?.name || 'User';
+    
     const today = new Date().toLocaleDateString('en-IN', {
         weekday: 'long',
         year: 'numeric',
@@ -44,7 +48,7 @@ const PatientDashboard = () => {
             {/* ---- Header ---- */}
             <div className="pdash__header">
                 <div className="pdash__greeting">
-                    <h2>Hi, Priya 👋</h2>
+                    <h2>Hi, {userName} 👋</h2>
                     <p>Let&apos;s check on your health today.</p>
                 </div>
                 <span className="pdash__date-badge">🗓️ {today}</span>
