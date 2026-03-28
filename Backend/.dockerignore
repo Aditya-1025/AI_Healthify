@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+healthify.db
+.git
+.gitignore
+.vscode/
+*.md

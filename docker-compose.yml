@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Backend Service
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: healthify-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - GEMINI_API_KEY=AIzaSyBwNj4X5pXjMPKRYBokWCzBN_GEPG80Rlg
+      - DATABASE_URL=sqlite:///./healthify.db
+    volumes:
+      - ./Backend:/app
+    command: python -m uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload
+    networks:
+      - healthify-network
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: healthify-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    networks:
+      - healthify-network
+
+networks:
+  healthify-network:
+    driver: bridge

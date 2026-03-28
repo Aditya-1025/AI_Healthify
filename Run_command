@@ -1,0 +1,28 @@
+# 1. Start the project
+cd /home/testuser/Healthify
+docker-compose up
+
+# 2. In another terminal, check database
+docker-compose exec backend python check_users.py
+
+# 3. Stop when done
+docker-compose down
+
+
+
+To check hashed Bcrypt password
+docker-compose exec backend python -c "
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from app.models import User
+
+engine = create_engine('sqlite:///./healthify.db')
+SessionLocal = sessionmaker(bind=engine)
+db = SessionLocal()
+
+users = db.query(User).all()
+for user in users:
+    print(f'Email: {user.email}')
+    print(f'Hash: {user.password}')
+    print('---')
+"
