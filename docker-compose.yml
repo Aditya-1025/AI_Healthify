@@ -10,7 +10,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - GEMINI_API_KEY=AIzaSyBwNj4X5pXjMPKRYBokWCzBN_GEPG80Rlg
+      - GEMINI_API_KEY=
       - DATABASE_URL=sqlite:///./healthify.db
     volumes:
       - ./Backend:/app
